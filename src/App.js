@@ -7,12 +7,17 @@ import Loading from './pages/Loading';
 
 const Menu = lazy(() => import('./pages/Menu'))
 const Home = lazy(() => import('./pages/Home'))
+const Pokedex = lazy(() => import('./pages/Pokedex'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 const metaMap = {
   '/': {
     title: 'Home',
     description: 'Bem-Vindo à página inicial'
+  },
+  '/pokedex': {
+    title: 'Pokédex',
+    description: 'Listagem de todos os Pokémons'
   },
   '*': {
     title: 'Erro 404',
@@ -62,6 +67,7 @@ function App() {
         <TitleAndMetaUpdater />
         <Routes>
           <Route path='/' element={<Menu><Home /></Menu>} />
+          <Route path='/pokedex' element={<Menu><Pokedex /></Menu>} />
 
           <Route path='*' element={<Menu><NotFound>Página não encontrada</NotFound></Menu>} />
         </Routes>

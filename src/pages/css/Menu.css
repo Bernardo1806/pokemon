@@ -47,7 +47,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   flex-direction: column;
 
   height: 90px;
@@ -55,10 +55,10 @@
   margin: 0 10px;
 
   background: linear-gradient(to bottom,
-      rgb(255, 255, 255) 0%,
-      rgba(255, 255, 255, 1) 90%,
-      rgba(32, 32, 32, .95) 90%,
-      rgba(32, 32, 32, .95) 100%);
+      rgb(222, 222, 222) 0%,
+      rgba(222, 222, 222, 1) 90%,
+      rgba(32, 32, 32, 1) 90%,
+      rgba(32, 32, 32, 1) 100%);
 
   color: #000;
   font-weight: bold;
@@ -67,55 +67,97 @@
   border-bottom-left-radius: 10px;
   text-decoration: none;
 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .4);
+
   overflow: hidden;
   transition: all 0.4s ease;
 }
 
 .btn-image {
-  width: 50px;
-  height: 50px;
+  flex-shrink: 0;
+  width: 80%;
+  height: 45px;
   object-fit: contain;
+  margin-top: 6px;
   margin-bottom: 3px;
+  filter: brightness(0) saturate(1) invert(1) sepia(0) saturate(0) hue-rotate(0deg) brightness(30%);
 
   transition: transform 0.3 ease, filter 0.3s ease;
 }
 
 .btn-text {
   font-size: .9rem;
+  text-align: center;
+  line-height: 1;
+  color: #4c4c4c;
+
   transition: color 0.3s ease;
 }
 
 /* Cores dos Botões */
+
+.custom-btn {
+  background-size: 100% 100%;
+  background-position: bottom;
+  transition: background-size 0.3s ease-in-out, color 0.3s ease
+}
+
 .home-btn {
-  background: linear-gradient(to bottom,
-      rgb(255, 255, 255) 0%,
-      rgba(255, 255, 255, 1) 90%,
+  background-image: linear-gradient(to bottom,
+      rgb(222, 222, 222) 0%,
+      rgba(222, 222, 222, 1) 90%,
       rgba(60, 60, 60, 1) 90%,
       rgba(60, 60, 60, 1) 100%);
 }
 
 .pokedex-btn {
-  background: linear-gradient(to bottom,
-      rgb(255, 255, 255) 0%,
-      rgba(255, 255, 255, 1) 90%,
-      rgba(180, 0, 0, 1) 90%,
-      rgba(180, 0, 0, 1) 100%);
+  background-image: linear-gradient(to bottom,
+      rgb(222, 222, 222) 0%,
+      rgba(222, 222, 222, 1) 90%,
+      rgba(227, 53, 13, 1) 90%,
+      rgba(227, 53, 13, 1) 100%);
+}
+
+.trainer-btn {
+  background-image: linear-gradient(to bottom,
+      rgb(222, 222, 222) 0%,
+      rgba(222, 222, 222, 1) 90%,
+      rgba(238, 107, 47, 1) 90%,
+      rgba(238, 107, 47, 1) 100%);
+}
+
+.map-btn {
+  background-image: linear-gradient(to bottom,
+      rgb(222, 222, 222) 0%,
+      rgba(222, 222, 222, 1) 90%,
+      rgba(230, 188, 47, 1) 90%,
+      rgba(230, 188, 47, 1) 100%);
+}
+
+.custom-btn:hover {
+  background-size: 100% 1000%;
 }
 
 /* Acabo */
 
-.custom-btn:hover {
-  background: linear-gradient(to bottom,
-      rgba(32, 32, 32, 1) 0%,
-      rgba(32, 32, 32, 1) 100%);
-  color: #fff;
-}
-
 .custom-btn:hover .btn-image{
   transform: scale(1.1);
-  filter: brightness(3) invert(1);
+  filter: brightness(2) invert(0);
 }
 
 .custom-btn:hover .btn-text {
+  color: #fff;
+}
+
+.active {
+  background-size: 100% 1000%;
+}
+
+.active .btn-image{
+  transform: scale(1.1);
+  filter: brightness(2) invert(0);
+}
+
+.active .btn-text {
   color: #fff;
 }
