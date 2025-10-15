@@ -106,16 +106,16 @@
   background-image: linear-gradient(to bottom,
       rgb(222, 222, 222) 0%,
       rgba(222, 222, 222, 1) 90%,
-      rgba(60, 60, 60, 1) 90%,
-      rgba(60, 60, 60, 1) 100%);
+      rgba(41, 78, 104, 1) 90%,
+      rgba(41, 78, 104, 1) 100%);
 }
 
 .pokedex-btn {
   background-image: linear-gradient(to bottom,
       rgb(222, 222, 222) 0%,
       rgba(222, 222, 222, 1) 90%,
-      rgba(227, 53, 13, 1) 90%,
-      rgba(227, 53, 13, 1) 100%);
+      rgba(223, 34, 69, 1) 90%,
+      rgba(223, 34, 69, 1) 100%);
 }
 
 .trainer-btn {

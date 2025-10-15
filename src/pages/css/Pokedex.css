@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
+
 .container-pokedex {
     width: 65%;
     height: fit-content;
@@ -10,4 +13,73 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
     border: 6px solid #ecd9ef;
     outline: 6px solid #caa746;
+}
+
+.title-pokedex {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+}
+
+.geracao-select {
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: larger;
+    background-color: #3c6eaf;
+    color: #ffffff;
+    border: 3px solid #2b4f8c;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    max-width: 300px;
+    margin: 0 auto;
+    box-shadow: 0 4px #1f3d6d;
+    transition: 0.2s ease;
+}
+
+.geracao-select:hover {
+    background-color: #5a8bd9;
+}
+
+.geracao-select:focus {
+    outline: none;
+    box-shadow: 0 0 10px #3c6eaf;
+}
+
+.pokedex {
+    border-radius: 0 !important;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: #313131;
+    border: 1px solid #232323 !important;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.pokedex-first {
+    border-top-left-radius: 20px !important;
+    border-bottom-left-radius: 20px !important;
+}
+
+.pokedex-last {
+    border-top-right-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+}
+
+.pokemon-img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.pokedex:hover .pokemon-img {
+    transform: scale(1.15);
+}
+
+.pokedex:hover {
+    background-color: #232323;
+}
+
+.pokedex, .pokedex:focus, .pokedex:active, .pokedex:hover {
+    outline: none !important;
+    box-shadow: none !important;
 }
