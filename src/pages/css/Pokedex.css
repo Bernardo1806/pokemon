@@ -24,6 +24,11 @@
     -webkit-text-stroke: 1px rgba(0,0,0,0.6);
 }
 
+.geracao-group {
+    display: flex;
+    flex-direction: row;
+}
+
 .geracao-select {
     font-family: 'Pixelify Sans', sans-serif;
     font-size: larger;

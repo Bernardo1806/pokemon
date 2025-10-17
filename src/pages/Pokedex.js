@@ -2,7 +2,7 @@ import { Container, Spinner, Form, Row, Col, Card } from "react-bootstrap";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './css/Pokedex.css'
-import { cache, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const typeColors = {
     normal: '#A8A77A', fire: '#EE8130', water: '#6390F0', electric: '#F7D02C',
@@ -25,14 +25,17 @@ const geracoes = [
     { id: 10, nome: 'Todas as Gerações' },
 ];
 
-const pageSize = 50
+const pageSize = 96
 
 const Pokedex = (() => {
     const [pokemons, setPokemons] = useState([])
     const [visibleCount, setVisibleCount] = useState(pageSize)
     const [loading, setLoading] = useState(false)
     const [geracaoSelecionada, setGeracaoSelecionada] = useState(1)
+    const [tipoSelecionado, setTipoSelecionado] = useState('')
     const [hoveredPokemon, setHoveredPokemon] = useState(null);
+
+    const tipos = ['', ...Object.keys(typeColors)]
 
     const fetchPorGeracao = async (idGeracao) => {
         setLoading(true)
@@ -103,7 +106,7 @@ const Pokedex = (() => {
         const windowHeight = window.innerHeight
         const fullHeight = document.documentElement.scrollHeight
 
-        if (scrollTop + windowHeight + 25 >= fullHeight) {
+        if (scrollTop + windowHeight + 48 >= fullHeight) {
             setVisibleCount((prev) => Math.min(prev + pageSize, pokemons.length))
         }
     }
@@ -111,7 +114,11 @@ const Pokedex = (() => {
     useEffect(() => {
         fetchPorGeracao(geracaoSelecionada)
 
-        document.title = `Pokédex - Geração ${geracaoSelecionada}`;
+        if (geracaoSelecionada === 10) {
+            document.title = `Pokédex - Todas`
+        } else {
+            document.title = `Pokédex - Geração ${geracaoSelecionada}`;
+        }
     }, [geracaoSelecionada]);
 
     useEffect(() => {
@@ -120,14 +127,22 @@ const Pokedex = (() => {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [pokemons])
 
-    const pokemonsToShow = pokemons.slice(0, visibleCount)
+    useEffect(() =>{
+        setVisibleCount(pageSize)
+    }, [tipoSelecionado, geracaoSelecionada])
+
+    const pokemonsFiltrados = tipoSelecionado
+        ? pokemons.filter(p => p.types.includes(tipoSelecionado))
+        : pokemons
+
+    const pokemonsToShow = pokemonsFiltrados.slice(0, visibleCount)
 
     return (
         <>
             <Container className="container-pokedex my-5 mx-auto d-block">
                 <h4 className="text-center my-5 title-pokedex">Pokédex</h4>
 
-                <Form.Group className="mb-4 w-100 text-center">
+                <Form.Group className="mb-4 w-100 text-center geracao-group">
                     <Form.Select
                         className="geracao-select"
                         value={geracaoSelecionada}
@@ -135,6 +150,17 @@ const Pokedex = (() => {
                     >
                         {geracoes.map(g => (
                             <option key={g.id} value={g.id}>{g.nome}</option>
+                        ))}
+                    </Form.Select>
+                    <Form.Select
+                        className="geracao-select"
+                        value={tipoSelecionado}
+                        onChange={(e) => setTipoSelecionado(e.target.value)}
+                    >
+                        {tipos.map((tipo) => (
+                            <option key={tipo} value={tipo}>
+                                {tipo === '' ? 'Todos os tipos' : tipo.charAt(0).toUpperCase() + tipo.slice(1)}
+                            </option>
                         ))}
                     </Form.Select>
                 </Form.Group>
