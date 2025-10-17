@@ -12,6 +12,27 @@ const typeColors = {
     steel: '#B7B7CE', fairy: '#D685AD',
 };
 
+const typeImages = {
+    normal: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/1.png',
+    fire: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/10.png',
+    water: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/11.png',
+    electric: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/13.png',
+    grass: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/12.png',
+    ice: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/15.png',
+    fighting: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/2.png',
+    poison: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/4.png',
+    ground: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/5.png',
+    flying: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/3.png',
+    psychic: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/14.png',
+    bug: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/7.png',
+    rock: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/6.png',
+    ghost: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/8.png',
+    dragon: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/16.png',
+    dark: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/17.png',
+    steel: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/9.png',
+    fairy: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/18.png'
+}
+
 const geracoes = [
     { id: 1, nome: 'Geração 1 - Kanto' },
     { id: 2, nome: 'Geração 2 - Johto' },
@@ -127,7 +148,7 @@ const Pokedex = (() => {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [pokemons])
 
-    useEffect(() =>{
+    useEffect(() => {
         setVisibleCount(pageSize)
     }, [tipoSelecionado, geracaoSelecionada])
 
@@ -143,6 +164,15 @@ const Pokedex = (() => {
                 <h4 className="text-center my-5 title-pokedex">Pokédex</h4>
 
                 <Form.Group className="mb-4 w-100 text-center geracao-group">
+                    <Form.Select
+                        className="geracao-select"
+                        value={geracaoSelecionada}
+                        onChange={(e) => setGeracaoSelecionada(Number(e.target.value))}
+                    >
+                        {geracoes.map(g => (
+                            <option key={g.id} value={g.id}>{g.nome}</option>
+                        ))}
+                    </Form.Select>
                     <Form.Select
                         className="geracao-select"
                         value={geracaoSelecionada}
@@ -175,9 +205,17 @@ const Pokedex = (() => {
                 <Row className="gx-3 gy-0 justify-content-center">
                     {pokemonsToShow.map((pokemon, idx) => {
                         const mainType = pokemon.types[0]
-                        const bgColor = typeColors[mainType] || '#ccc';
+                        const secondType = pokemon.types[1]
+                        const bgColor = typeColors[mainType] || '#616161';
+                        const secondColor = secondType ? typeColors[secondType] : null
 
                         const isHovered = hoveredPokemon === pokemon.name
+
+                        const backgroundStyle = isHovered
+                            ? secondColor
+                                ? `linear-gradient(to bottom right, ${bgColor} 0%, ${bgColor} 49.5%, ${secondColor} 50.5%, ${secondColor} 100%)`
+                                : bgColor
+                            : '#616161'
 
                         return (
                             <Col key={idx} md={4} lg={3} className="mb-3">
@@ -196,8 +234,8 @@ const Pokedex = (() => {
                                     >
                                         <Card.Body
                                             style={{
-                                                backgroundColor: isHovered ? bgColor : '#616161',
-                                                transition: 'background-color 0.3s ease-in-out'
+                                                background: backgroundStyle,
+                                                transition: 'background 0.3s ease-in-out'
                                             }}
                                             className="pokedex-hold"
                                         >
@@ -214,11 +252,15 @@ const Pokedex = (() => {
                                             <Card.Title>
                                                 {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
                                             </Card.Title>
-                                            <Card.Text>
+                                            <Card.Text className="icon-holder">
                                                 {pokemon.types.map(type => (
-                                                    <span key={type} className="badge me-1 mx-auto" style={{ backgroundColor: typeColors[type] || '#ccc' }}>
-                                                        {type.toUpperCase()}
-                                                    </span>
+                                                    <img
+                                                        key={type}
+                                                        src={typeImages[type]}
+                                                        alt={type}
+                                                        className="type-icon me-1"
+                                                        title={type.charAt(0).toUpperCase() + type.slice(1)}
+                                                    />
                                                 ))}
                                             </Card.Text>
                                         </Card.Body>

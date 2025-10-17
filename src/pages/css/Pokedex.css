@@ -42,7 +42,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     cursor: pointer;
-    max-width: 300px;
+    max-width: 30%;
     margin: 0 auto;
     box-shadow: 0 4px #1f3d6d;
     transition: 0.2s ease;
@@ -109,6 +109,19 @@
 
 .pokedex:hover .pokedex-id {
     color: #ffffff;
+}
+
+.icon-holder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+}
+
+.type-icon {
+    max-width: 50%;
+    height: auto;
+    vertical-align: middle;
 }
 
 .pokedex, .pokedex:focus, .pokedex:active, .pokedex:hover {

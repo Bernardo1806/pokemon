@@ -32,7 +32,7 @@ const Menu = ({ children }) => {
 
                 <Navbar expand="lg" className="Navbar-background" >
                     <Container fluid className="justify-content-center">
-                        <Nav className="w-70 justify-content-center">
+                        <Nav className="w-100 justify-content-center">
 
                             <Nav.Item>
                                 <Nav.Link as={Link} to="/" className={`btn custom-btn home-btn ${location.pathname === '/' ? 'active' : ''}`}>
