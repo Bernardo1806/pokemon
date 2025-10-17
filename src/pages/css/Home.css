@@ -15,9 +15,43 @@
     outline: 6px solid #caa746;
 }
 
+.copy-card {
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    background: #6ab4ca;
+    border: 6px solid #ecd9ef;
+    outline: 6px solid #caa746;
+    border-radius: 0px !important;
+    border-top-left-radius: 40px !important;
+    border-bottom-right-radius: 40px !important;
+    transition: all 0.3s ease-in-out;
+}
+
+.copy-text {
+    color: white;
+    font-weight: bold;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(0, 0, 0, 0.8);
+    border-radius: 0px !important;
+    border-top-left-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+    transition: all 0.3s ease-in-out;
+}
+
+.copy-card:hover {
+    transform: translateY(-10px);
+    border: 6px solid #caa746;
+    outline: 6px solid #ecd9ef;
+}
+
+.copy-card:hover .copy-text {
+    border: 2px solid white;
+}
+
 .title {
     font-family: 'Press Start 2P', cursive;
     color: #fff;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.6);
 }
 
 .video-container {

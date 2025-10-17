@@ -7,17 +7,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #df2245;
+    background: #959cee;
     border-top-left-radius: 40px;
     border-bottom-right-radius: 40px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
     border: 6px solid #ecd9ef;
     outline: 6px solid #caa746;
+    overflow: hidden;
+    background-image: url('https://i.imgur.com/cBGHxdm.png');
+    background-position: center;
 }
 
 .title-pokedex {
     font-family: 'Press Start 2P', cursive;
     color: #fff;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.6);
 }
 
 .geracao-select {
@@ -49,37 +53,61 @@
 }
 
 .pokedex {
-    border-radius: 0 !important;
     cursor: pointer;
     overflow: hidden;
     background-color: #313131;
-    border: 1px solid #232323 !important;
+    background-color: rgba(49,49,49,0.3);
+    border-radius: 20px;
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.pokedex-first {
-    border-top-left-radius: 20px !important;
-    border-bottom-left-radius: 20px !important;
-}
-
-.pokedex-last {
-    border-top-right-radius: 20px !important;
-    border-bottom-right-radius: 20px !important;
-}
-
 .pokemon-img {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    z-index: 5 !important;
+    scale: 0.85;
     transition: transform 0.3s ease-in-out;
 }
 
 .pokedex:hover .pokemon-img {
-    transform: scale(1.15);
+    transform: scale(1.10);
 }
 
 .pokedex:hover {
-    background-color: #232323;
+    background-color: rgba(35,35,35,.8);
+    transform: translateY(-10px);
+}
+
+.pokedex-hold {
+    min-height: 15vmax;
+    border-radius: 20px;
+    border: 2px solid #616161 !important;
+    transition: border 0.3s ease-in-out;
+}
+
+.pokedex:hover .pokedex-hold {
+    border: 2px solid rgba(35, 35, 35, 0.8) !important;
+}
+
+.pokedex-id {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    color: #525252;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 5rem;
+    z-index: 1 !important;
+    transition: color 0.3s ease;
+}
+
+.pokedex:hover .pokedex-id {
+    color: #ffffff;
 }
 
 .pokedex, .pokedex:focus, .pokedex:active, .pokedex:hover {
     outline: none !important;
+    border: none !important;
     box-shadow: none !important;
 }

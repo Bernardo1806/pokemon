@@ -2,7 +2,7 @@ import { Container, Spinner, Form, Row, Col, Card } from "react-bootstrap";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './css/Pokedex.css'
-import { useEffect, useState } from "react";
+import { cache, useEffect, useState } from "react";
 
 const typeColors = {
     normal: '#A8A77A', fire: '#EE8130', water: '#6390F0', electric: '#F7D02C',
@@ -22,11 +22,14 @@ const geracoes = [
     { id: 7, nome: 'Geração 7 - Alola' },
     { id: 8, nome: 'Geração 8 - Galar' },
     { id: 9, nome: 'Geração 9 - Paldea' },
+    { id: 10, nome: 'Todas as Gerações' },
 ];
 
+const pageSize = 50
 
 const Pokedex = (() => {
     const [pokemons, setPokemons] = useState([])
+    const [visibleCount, setVisibleCount] = useState(pageSize)
     const [loading, setLoading] = useState(false)
     const [geracaoSelecionada, setGeracaoSelecionada] = useState(1)
     const [hoveredPokemon, setHoveredPokemon] = useState(null);
@@ -34,36 +37,76 @@ const Pokedex = (() => {
     const fetchPorGeracao = async (idGeracao) => {
         setLoading(true)
         setPokemons([])
+        setVisibleCount(pageSize)
 
         try {
-            const res = await axios.get(`https://pokeapi.co/api/v2/generation/${idGeracao}`)
-            const species = res.data.pokemon_species
+            const cacheKey = `geracao_${idGeracao}`
+            const cache = localStorage.getItem(cacheKey)
+
+            if (cache) {
+                console.log(`Usando cache para ${cacheKey}`)
+                setPokemons(JSON.parse(cache))
+                setLoading(false)
+                return
+            }
+
+            let species = []
+
+            if (idGeracao === 10) {
+                const geracoesPromises = Array.from({ length: 9 }, (_, i) =>
+                    axios.get(`https://pokeapi.co/api/v2/generation/${i + 1}`)
+                );
+                const resultados = await Promise.all(geracoesPromises)
+
+                species = resultados.flatMap((res) => res.data.pokemon_species)
+            } else {
+                const res = await axios.get(`https://pokeapi.co/api/v2/generation/${idGeracao}`)
+                species = res.data.pokemon_species
+            }
+
             const ordenadas = species.sort((a, b) => a.name.localeCompare(b.name))
+            const detalhes = await Promise.all(
+                ordenadas.map(async (s) => {
+                    try {
+                        const resDetalhe = await axios.get(`https://pokeapi.co/api/v2/pokemon/${s.name}`)
+                        return {
+                            id: resDetalhe.data.id,
+                            name: resDetalhe.data.name,
+                            image: resDetalhe.data.sprites.other['official-artwork'].front_default,
+                            types: resDetalhe.data.types.map(t => t.type.name),
+                        }
+                    } catch {
+                        return null;
+                    }
+                })
+            )
 
-            const detalhes = await Promise.all(ordenadas.map(async (s) => {
-                try {
-                    const resDetalhe = await axios.get(`https://pokeapi.co/api/v2/pokemon/${s.name}`)
-                    return {
-                        id: resDetalhe.data.id,
-                        name: resDetalhe.data.name,
-                        image: resDetalhe.data.sprites.other['official-artwork'].front_default,
-                        types: resDetalhe.data.types.map(t => t.type.name),
-                    };
-                } catch {
-                    return null;
-                }
-            }));
             const ordenadosPorId = detalhes
-                .filter(p => p !== null)
-                .sort((a, b) => a.id - b.id);
+                .filter((p) => p !== null)
+                .sort((a, b) => a.id - b.id)
 
-            setPokemons(ordenadosPorId.filter(p => p && p.image));
+            const resultadoFinal = ordenadosPorId.filter((p) => p && p.image)
+
+            localStorage.setItem(cacheKey, JSON.stringify(resultadoFinal))
+            console.log(`Cache salvo para ${cacheKey}`)
+
+            setPokemons(resultadoFinal)
         } catch (error) {
-            console.error('Erro ao buscar geração', error);
+            console.error("Erro ao buscar geração", error)
         } finally {
             setLoading(false)
         }
     };
+
+    const handleScroll = () => {
+        const scrollTop = document.documentElement.scrollTop
+        const windowHeight = window.innerHeight
+        const fullHeight = document.documentElement.scrollHeight
+
+        if (scrollTop + windowHeight + 25 >= fullHeight) {
+            setVisibleCount((prev) => Math.min(prev + pageSize, pokemons.length))
+        }
+    }
 
     useEffect(() => {
         fetchPorGeracao(geracaoSelecionada)
@@ -71,6 +114,13 @@ const Pokedex = (() => {
         document.title = `Pokédex - Geração ${geracaoSelecionada}`;
     }, [geracaoSelecionada]);
 
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [pokemons])
+
+    const pokemonsToShow = pokemons.slice(0, visibleCount)
 
     return (
         <>
@@ -89,74 +139,74 @@ const Pokedex = (() => {
                     </Form.Select>
                 </Form.Group>
 
-                {loading ? (
+                {loading && (
                     <div className="text-center my-5">
                         <Spinner animation="border" variant="primary" />
                         <p className="text-white">Carregando Pokémons...</p>
                     </div>
-                ) : (
-                    <Row className="gx-0 gy-3 justify-content-center">
-                        {pokemons.map((pokemon, idx) => {
-                            const mainType = pokemon.types[0]
-                            const bgColor = typeColors[mainType] || '#ccc';
+                )}
 
-                            const isHovered = hoveredPokemon === pokemon.name
+                <Row className="gx-3 gy-0 justify-content-center">
+                    {pokemonsToShow.map((pokemon, idx) => {
+                        const mainType = pokemon.types[0]
+                        const bgColor = typeColors[mainType] || '#ccc';
 
-                            const cardsPorLinha = 4;
-                            const isFirst = idx % cardsPorLinha === 0;
-                            const isLast = (idx + 1) % cardsPorLinha === 0;
+                        const isHovered = hoveredPokemon === pokemon.name
 
-                            return (
-                                <Col key={idx} md={4} lg={3}>
-                                    <Link
-                                        to={`/busca/${pokemon.name.toLowerCase()}`}
-                                        style={{ textDecoration: 'none' }}
+                        return (
+                            <Col key={idx} md={4} lg={3} className="mb-3">
+                                <Link
+                                    to={`/busca/${pokemon.name.toLowerCase()}`}
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    <Card
+                                        style={{
+                                            //backgroundColor: isHovered ? bgColor : '#313131',
+                                            zIndex: '2'
+                                        }}
+                                        className="text-white pokedex"
+                                        onMouseEnter={() => setHoveredPokemon(pokemon.name)}
+                                        onMouseLeave={() => setHoveredPokemon(null)}
                                     >
-                                        <Card
+                                        <Card.Body
                                             style={{
-                                                //backgroundColor: isHovered ? bgColor : '#313131',
-                                                zIndex: '2'
+                                                backgroundColor: isHovered ? bgColor : '#616161',
+                                                transition: 'background-color 0.3s ease-in-out'
                                             }}
-                                            className={`text-white pokedex ${isFirst ? 'pokedex-first' : ''} ${isLast ? 'pokedex-last' : ''}`}
-                                            onMouseEnter={() => setHoveredPokemon(pokemon.name)}
-                                            onMouseLeave={() => setHoveredPokemon(null)}
+                                            className="pokedex-hold"
                                         >
-                                            <Card.Body
-                                                style={{
-                                                    backgroundColor: isHovered ? bgColor: '#616161',
-                                                    transition: 'background-color 0.3s ease-in-out'
-                                                }}
-                                            >
-                                                <Card.Img
-                                                    variant="top"
-                                                    className="pokemon-img"
-                                                    src={pokemon.image}
-                                                />
-                                                <Card.Title>
-                                                    #{String(pokemon.id).padStart(3, '0')}
-                                                </Card.Title>
-                                            </Card.Body>
-                                            <Card.Body>
-                                                <Card.Title>
-                                                    {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-                                                </Card.Title>
-                                                <Card.Text>
-                                                    {pokemon.types.map(type => (
-                                                        <span key={type} className="badge me-1" style={{ backgroundColor: typeColors[type] || '#ccc' }}>
-                                                            {type.toUpperCase()}
-                                                        </span>
-                                                    ))}
-                                                </Card.Text>
-                                                <Card.Text className="text-center">
-                                                    <small>Clique para ver detalhes</small>
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </Link>
-                                </Col>
-                            )
-                        })}
-                    </Row>
+                                            <Card.Img
+                                                variant="top"
+                                                className="pokemon-img"
+                                                src={pokemon.image}
+                                            />
+                                            <Card.Title className="pokedex-id text-center">
+                                                {String(pokemon.id).padStart(3, '0')}
+                                            </Card.Title>
+                                        </Card.Body>
+                                        <Card.Body>
+                                            <Card.Title>
+                                                {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+                                            </Card.Title>
+                                            <Card.Text>
+                                                {pokemon.types.map(type => (
+                                                    <span key={type} className="badge me-1 mx-auto" style={{ backgroundColor: typeColors[type] || '#ccc' }}>
+                                                        {type.toUpperCase()}
+                                                    </span>
+                                                ))}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Link>
+                            </Col>
+                        )
+                    })}
+                </Row>
+
+                {visibleCount < pokemons.length && !loading && (
+                    <div className="text-center my-3">
+                        <Spinner animation="border" />
+                    </div>
                 )}
             </Container>
         </>
