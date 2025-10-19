@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #959cee;
+    background: #cc490c;
     border-top-left-radius: 40px;
     border-bottom-right-radius: 40px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
@@ -21,7 +21,7 @@
 .title-pokedex {
     font-family: 'Press Start 2P', cursive;
     color: #fff;
-    -webkit-text-stroke: 1px rgba(0,0,0,0.6);
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.6);
 }
 
 .geracao-group {
@@ -48,6 +48,10 @@
     transition: 0.2s ease;
 }
 
+.geracao-select[type="search"] {
+    text-transform: capitalize;
+}
+
 .geracao-select:hover {
     background-color: #5a8bd9;
 }
@@ -61,7 +65,7 @@
     cursor: pointer;
     overflow: hidden;
     background-color: #313131;
-    background-color: rgba(49,49,49,0.3);
+    background-color: rgba(49, 49, 49, 0.3);
     border-radius: 20px;
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
@@ -75,12 +79,52 @@
     transition: transform 0.3s ease-in-out;
 }
 
+.typing-img {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    clip-path: polygon(0 0, 0% 100%, 100% 0);
+    opacity: 0%;
+    height: 15vmax;
+    width: 100%;
+    mix-blend-mode: overlay;
+    transition: all 0.3s ease-in-out;
+}
+
+.typing-img2 {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    clip-path: polygon(100% 100%, 0% 100%, 100% 0);
+    opacity: 0%;
+    height: 15vmax;
+    width: 100%;
+    mix-blend-mode: overlay;
+    transition: all 0.3s ease-in-out;
+}
+
+.autocomplete-list {
+    max-width: 30%;
+    position: absolute;
+    z-index: 9999;
+}
+
 .pokedex:hover .pokemon-img {
     transform: scale(1.10);
 }
 
+.pokedex:hover .typing-img {
+    opacity: 80%;
+    transform: scale(0.725);
+}
+
+.pokedex:hover .typing-img2 {
+    opacity: 80%;
+    transform: scale(0.725);
+}
+
 .pokedex:hover {
-    background-color: rgba(35,35,35,.8);
+    background-color: rgba(35, 35, 35, .8);
     transform: translateY(-10px);
 }
 
@@ -115,7 +159,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0px;
+    gap: 2px;
 }
 
 .type-icon {
@@ -124,7 +168,10 @@
     vertical-align: middle;
 }
 
-.pokedex, .pokedex:focus, .pokedex:active, .pokedex:hover {
+.pokedex,
+.pokedex:focus,
+.pokedex:active,
+.pokedex:hover {
     outline: none !important;
     border: none !important;
     box-shadow: none !important;
