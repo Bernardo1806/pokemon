@@ -50,6 +50,25 @@
 
 .geracao-select[type="search"] {
     text-transform: capitalize;
+    max-width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #3c6eaf !important;
+    color: #ffffff !important;
+    border: 3px solid #2b4f8c !important;
+}
+
+.geracao-select[type="search"]:focus,
+.geracao-select[type="search"]:active {
+    background-color: #3c6eaf !important;
+    color: #ffffff !important;
+    border-color: #2b4f8c !important;
+}
+
+.geracao-select[type="search"]:disabled {
+    background-color: #2b4f8c !important;
+    color: #dcdcdc !important;
+    opacity: 0.7;
 }
 
 .geracao-select:hover {
@@ -59,6 +78,24 @@
 .geracao-select:focus {
     outline: none;
     box-shadow: 0 0 10px #3c6eaf;
+}
+
+.listgroup-item {
+    background: #3c6eaf;
+    border: none;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.listgroup-item:hover,
+.listgroup-item:focus,
+.listgroup-item:active {
+    background: #2b4f8c !important;
+}
+
+.autocomplete-container {
+    position: relative;
+    display: inline-block;
+    width: 30%;
 }
 
 .pokedex {
@@ -104,9 +141,18 @@
 }
 
 .autocomplete-list {
-    max-width: 30%;
     position: absolute;
-    z-index: 9999;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 3px solid #2b4f8c;
+    border-top: none;
+    background-color: #3c6eaf;
+    z-index: 1000;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px #1f3d6d;
 }
 
 .pokedex:hover .pokemon-img {

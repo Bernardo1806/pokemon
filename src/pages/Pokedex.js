@@ -188,7 +188,7 @@ const Pokedex = (() => {
     const handleInputChange = (e) => {
         const input = e.target.value.toLowerCase().trim()
         setAbilitySearch(input)
-        
+
         if (input.trim().length === 0) {
             setAbilitySuggestion([])
             return
@@ -254,32 +254,34 @@ const Pokedex = (() => {
                 <h4 className="text-center my-5 title-pokedex">Pokédex</h4>
 
                 <Form.Group className="mb-4 w-100 text-center geracao-group">
-                    <FormControl
-                        type="search"
-                        placeholder="Buscar Habilidade"
-                        className="geracao-select"
-                        value={abilitySearch}
-                        onChange={handleInputChange}
-                        disabled={loadingAbility}
-                    />
-                    {abilitySuggestion.length > 0 && (
-                        <ListGroup className="autocomplete-list">
-                            {abilitySuggestion.map((hab, i) => (
-                                <ListGroup.Item
-                                    key={i}
-                                    action
-                                    onClick={() => {
-                                        setAbilitySearch(hab)
-                                        setAbilitySuggestion([])
-                                        setVisibleCount(pageSize)
-                                    }}
-                                    className=""
-                                >
-                                    <span>{hab.charAt(0).toUpperCase() + hab.slice(1)}</span>
-                                </ListGroup.Item>
-                            ))}
-                        </ListGroup>
-                    )}
+                    <div className="autocomplete-container">
+                        <FormControl
+                            type="search"
+                            placeholder="Buscar Habilidade"
+                            className="geracao-select"
+                            value={abilitySearch}
+                            onChange={handleInputChange}
+                            disabled={loadingAbility}
+                        />
+                        {abilitySuggestion.length > 0 && (
+                            <ListGroup className="autocomplete-list">
+                                {abilitySuggestion.map((hab, i) => (
+                                    <ListGroup.Item
+                                        key={i}
+                                        action
+                                        onClick={() => {
+                                            setAbilitySearch(hab)
+                                            setAbilitySuggestion([])
+                                            setVisibleCount(pageSize)
+                                        }}
+                                        className="listgroup-item"
+                                    >
+                                        <span className="text-white">{hab.charAt(0).toUpperCase() + hab.slice(1)}</span>
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        )}
+                    </div>
                     <Form.Select
                         className="geracao-select"
                         value={geracaoSelecionada}
