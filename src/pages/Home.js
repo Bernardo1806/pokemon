@@ -1,5 +1,6 @@
 import { Container, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import './css/Home.css'
+import Loading from './Loading'
 import { useState } from "react";
 
 const Home = (() => {

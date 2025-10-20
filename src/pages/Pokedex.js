@@ -2,6 +2,7 @@ import { Container, Spinner, Form, Row, Col, Card, FormControl, ListGroup } from
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './css/Pokedex.css'
+import Loading from './Loading'
 import { useEffect, useState } from "react";
 
 const typeColors = {
@@ -200,7 +201,7 @@ const Pokedex = (() => {
 
         setAbilitySuggestion(filtered.slice(0, 1000))
     }
-
+    
     useEffect(() => {
         const fetchAbility = async () => {
             try {
@@ -389,7 +390,7 @@ const Pokedex = (() => {
                                                         key={type}
                                                         src={typeImages[type]}
                                                         alt={type}
-                                                        className="type-icon me-1"
+                                                        className="type-icon-pokedex me-1"
                                                         title={type.charAt(0).toUpperCase() + type.slice(1)}
                                                     />
                                                 ))}

@@ -4,10 +4,10 @@ import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { lazy, Suspense, useState, useEffect } from 'react'
 import Loading from './pages/Loading';
 
-
 const Menu = lazy(() => import('./pages/Menu'))
 const Home = lazy(() => import('./pages/Home'))
 const Pokedex = lazy(() => import('./pages/Pokedex'))
+const Busca = lazy(() => import('./pages/Busca'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 const metaMap = {
@@ -18,6 +18,10 @@ const metaMap = {
   '/pokedex': {
     title: 'Pokédex',
     description: 'Listagem de todos os Pokémons'
+  },
+  '/busca': {
+    title: 'Busca',
+    description: 'Informações'
   },
   '*': {
     title: 'Erro 404',
@@ -68,6 +72,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Menu><Home /></Menu>} />
           <Route path='/pokedex' element={<Menu><Pokedex /></Menu>} />
+          <Route path='/busca/:nome' element={<Menu><Busca /></Menu>} />
 
           <Route path='*' element={<Menu><NotFound>Página não encontrada</NotFound></Menu>} />
         </Routes>

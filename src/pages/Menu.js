@@ -6,6 +6,7 @@ import './css/Menu.css'
 
 const Menu = ({ children }) => {
     const [showButton, setShowButton] = useState(false);
+    const [fadeKey, setFadeKey] = useState(0)
     const location = useLocation();
 
     useEffect(() => {
@@ -20,6 +21,10 @@ const Menu = ({ children }) => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    useEffect(() => {
+        setFadeKey(prev => prev + 1)
+    }, [location.pathname])
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -74,7 +79,7 @@ const Menu = ({ children }) => {
                     </Container>
                 </Navbar>
 
-                <div style={{ flex: '1' }}>
+                <div key={fadeKey} className="page-fade" style={{ flex: '1' }}>
                     {children}
                 </div>
 

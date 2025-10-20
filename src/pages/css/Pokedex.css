@@ -101,7 +101,6 @@
 .pokedex {
     cursor: pointer;
     overflow: hidden;
-    background-color: #313131;
     background-color: rgba(49, 49, 49, 0.3);
     border-radius: 20px;
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
@@ -208,7 +207,7 @@
     gap: 2px;
 }
 
-.type-icon {
+.type-icon-pokedex {
     max-width: 50%;
     height: auto;
     vertical-align: middle;
