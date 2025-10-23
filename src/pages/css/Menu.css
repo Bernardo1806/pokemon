@@ -80,6 +80,7 @@
   object-fit: contain;
   margin-top: 6px;
   margin-bottom: 3px;
+  image-rendering: auto;
   filter: brightness(0) saturate(1) invert(1) sepia(0) saturate(0) hue-rotate(0deg) brightness(30%);
 
   transition: transform 0.3 ease, filter 0.3s ease;

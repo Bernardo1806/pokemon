@@ -119,10 +119,10 @@
     position: absolute;
     top: 0%;
     left: 0%;
-    clip-path: polygon(0 0, 0% 100%, 100% 0);
     opacity: 0%;
     height: 15vmax;
     width: 100%;
+    image-rendering: auto;
     mix-blend-mode: overlay;
     transition: all 0.3s ease-in-out;
 }
@@ -131,11 +131,12 @@
     position: absolute;
     top: 0%;
     left: 0%;
-    clip-path: polygon(100% 100%, 0% 100%, 100% 0);
     opacity: 0%;
     height: 15vmax;
     width: 100%;
+    image-rendering: auto;
     mix-blend-mode: overlay;
+    rotate: 180deg;
     transition: all 0.3s ease-in-out;
 }
 
@@ -159,13 +160,14 @@
 }
 
 .pokedex:hover .typing-img {
-    opacity: 80%;
-    transform: scale(0.725);
+    opacity: 50%;
+    transform: scale(0.875);
 }
 
 .pokedex:hover .typing-img2 {
-    opacity: 80%;
-    transform: scale(0.725);
+    opacity: 70%;
+    border-radius: 20px;
+    transform: scale(1);
 }
 
 .pokedex:hover {

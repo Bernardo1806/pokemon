@@ -361,16 +361,14 @@ const Pokedex = (() => {
                                             <Card.Title className="pokedex-id text-center">
                                                 {String(pokemon.id).padStart(3, '0')}
                                             </Card.Title>
-                                            <div className="type-icon-wrapper">
-                                                <Card.Img
-                                                    className="typing-img"
-                                                    src={typeIcons[mainType]}
-                                                />
-                                                <Card.Img
-                                                    className="typing-img2"
-                                                    src={typeIcons[secondTypeCopy]}
-                                                />
-                                            </div>
+                                            <Card.Img
+                                                className="typing-img"
+                                                src={'https://i.imgur.com/t4EtWZA.png'}
+                                            />
+                                            <Card.Img
+                                                className="typing-img2"
+                                                src={'https://i.imgur.com/cBGHxdm.png'}
+                                            />
                                         </Card.Body>
                                         <Card.Body>
                                             <Card.Title>
