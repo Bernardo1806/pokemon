@@ -177,10 +177,12 @@
     min-height: 15vmax;
     border-radius: 20px;
     border: 2px solid #616161 !important;
-    transition: border 0.3s ease-in-out;
+    background: var(--bg-normal);
+    transition: all 0.3s ease-in-out;
 }
 
 .pokedex:hover .pokedex-hold {
+    background: var(--bg-hover);
     border: 2px solid rgba(35, 35, 35, 0.8) !important;
 }
 

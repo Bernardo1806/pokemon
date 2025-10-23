@@ -2,7 +2,6 @@ import { Container, Spinner, Form, Row, Col, Card, FormControl, ListGroup } from
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './css/Pokedex.css'
-import Loading from './Loading'
 import { useEffect, useState } from "react";
 
 const typeColors = {
@@ -68,7 +67,7 @@ const geracoes = [
     { id: 10, nome: 'Todas as Gerações' },
 ];
 
-const pageSize = 96
+const pageSize = 24
 
 const Pokedex = (() => {
     const [pokemons, setPokemons] = useState([])
@@ -84,7 +83,6 @@ const Pokedex = (() => {
     const [abilitySuggestion, setAbilitySuggestion] = useState([])
     const [loadingAbility, setLoadingAbility] = useState(true)
 
-    const [hoveredPokemon, setHoveredPokemon] = useState(null);
     const tipos = ['', ...Object.keys(typeColors)]
 
     const fetchPorGeracao = async (idGeracao) => {
@@ -181,7 +179,7 @@ const Pokedex = (() => {
         const windowHeight = window.innerHeight
         const fullHeight = document.documentElement.scrollHeight
 
-        if (scrollTop + windowHeight + 48 >= fullHeight) {
+        if (scrollTop + windowHeight + 12 >= fullHeight) {
             setVisibleCount((prev) => Math.min(prev + pageSize, pokemons.length))
         }
     }
@@ -201,7 +199,7 @@ const Pokedex = (() => {
 
         setAbilitySuggestion(filtered.slice(0, 1000))
     }
-    
+
     useEffect(() => {
         const fetchAbility = async () => {
             try {
@@ -331,13 +329,10 @@ const Pokedex = (() => {
                         const bgColor = typeColors[mainType] || '#616161';
                         const secondColor = secondType ? typeColors[secondType] : null
 
-                        const isHovered = hoveredPokemon === pokemon.name
-
-                        const backgroundStyle = isHovered
-                            ? secondColor
-                                ? `linear-gradient(to bottom right, ${bgColor} 0%, ${bgColor} 49.5%, ${secondColor} 50.5%, ${secondColor} 100%)`
-                                : bgColor
-                            : '#616161'
+                        const normalBackground = '#616161'
+                        const hoverBackground = secondColor
+                            ? `linear-gradient(to bottom right, ${bgColor} 0%, ${bgColor} 49.5%, ${secondColor} 50.5%, ${secondColor} 100%)`
+                            : bgColor
 
                         return (
                             <Col key={idx} md={4} lg={3} className="mb-3">
@@ -347,17 +342,14 @@ const Pokedex = (() => {
                                 >
                                     <Card
                                         style={{
-                                            //backgroundColor: isHovered ? bgColor : '#313131',
                                             zIndex: '2'
                                         }}
                                         className="text-white pokedex"
-                                        onMouseEnter={() => setHoveredPokemon(pokemon.name)}
-                                        onMouseLeave={() => setHoveredPokemon(null)}
                                     >
                                         <Card.Body
                                             style={{
-                                                background: backgroundStyle,
-                                                transition: 'background 0.3s ease-in-out'
+                                                '--bg-normal': normalBackground,
+                                                '--bg-hover': hoverBackground,
                                             }}
                                             className="pokedex-hold"
                                         >
@@ -369,16 +361,16 @@ const Pokedex = (() => {
                                             <Card.Title className="pokedex-id text-center">
                                                 {String(pokemon.id).padStart(3, '0')}
                                             </Card.Title>
-                                            <Card.Img
-                                                variant="top"
-                                                className="typing-img"
-                                                src={typeIcons[mainType]}
-                                            />
-                                            <Card.Img
-                                                variant="top"
-                                                className="typing-img2"
-                                                src={typeIcons[secondTypeCopy]}
-                                            />
+                                            <div className="type-icon-wrapper">
+                                                <Card.Img
+                                                    className="typing-img"
+                                                    src={typeIcons[mainType]}
+                                                />
+                                                <Card.Img
+                                                    className="typing-img2"
+                                                    src={typeIcons[secondTypeCopy]}
+                                                />
+                                            </div>
                                         </Card.Body>
                                         <Card.Body>
                                             <Card.Title>
