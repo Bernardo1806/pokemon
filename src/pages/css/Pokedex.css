@@ -7,15 +7,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #cc490c;
+    background: #4d869b;
     border-top-left-radius: 40px;
     border-bottom-right-radius: 40px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
     border: 6px solid #ecd9ef;
     outline: 6px solid #caa746;
     overflow: hidden;
-    background-image: url('https://i.imgur.com/cBGHxdm.png');
-    background-position: center;
+    background-image: url('https://i.imgur.com/KxtRPYk.jpeg');
+    background-position: top left;
+    background-blend-mode: overlay;
+    background-size: auto;
+    background-repeat: repeat;
 }
 
 .title-pokedex {

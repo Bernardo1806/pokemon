@@ -115,8 +115,8 @@
   background-image: linear-gradient(to bottom,
       rgb(222, 222, 222) 0%,
       rgba(222, 222, 222, 1) 90%,
-      rgba(149, 156, 238, 1) 90%,
-      rgba(149, 156, 238, 1) 100%);
+      rgba(115, 193, 204, 1) 90%,
+      rgba(115, 193, 204, 1) 100%);
 }
 
 .trainer-btn {
