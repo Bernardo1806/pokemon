@@ -42,7 +42,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     cursor: pointer;
-    max-width: 30%;
+    max-width: 25%;
     margin: 0 auto;
     box-shadow: 0 4px #1f3d6d;
     transition: 0.2s ease;
@@ -155,6 +155,29 @@
     box-shadow: 0 4px #1f3d6d;
 }
 
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,.2);
+    border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,.4);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,.3) transparent;
+    scroll-behavior: smooth;
+}
+
 .pokedex:hover .pokemon-img {
     transform: scale(1.10);
 }
@@ -162,6 +185,16 @@
 .pokedex:hover .typing-img {
     opacity: 50%;
     transform: scale(0.875);
+    animation: rotateBall 4s linear infinite;
+}
+
+@keyframes rotateBall {
+    from {
+        rotate: 0deg;
+    }
+    to {
+        rotate: 360deg;
+    }
 }
 
 .pokedex:hover .typing-img2 {

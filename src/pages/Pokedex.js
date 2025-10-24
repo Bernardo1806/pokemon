@@ -83,6 +83,11 @@ const Pokedex = (() => {
     const [abilitySuggestion, setAbilitySuggestion] = useState([])
     const [loadingAbility, setLoadingAbility] = useState(true)
 
+    const [moves, setMoves] = useState([])
+    const [moveSearch, setMoveSearch] = useState('')
+    const [moveSuggestion, setMoveSuggestion] = useState([])
+    const [loadingMove, setLoadingMove] = useState(true)
+
     const tipos = ['', ...Object.keys(typeColors)]
 
     const fetchPorGeracao = async (idGeracao) => {
@@ -106,7 +111,9 @@ const Pokedex = (() => {
                         Array.isArray(p.types) &&
                         p.types.length > 0 &&
                         Array.isArray(p.abilities) &&
-                        p.abilities.length > 0
+                        p.abilities.length > 0 &&
+                        Array.isArray(p.moves) &&
+                        p.moves.length > 0
                     )
 
                     if (cacheValido) {
@@ -149,6 +156,7 @@ const Pokedex = (() => {
                             image: resDetalhe.data.sprites.other['official-artwork'].front_default,
                             types: resDetalhe.data.types.map(t => t.type.name),
                             abilities: resDetalhe.data.abilities.map(a => a.ability.name),
+                            moves: resDetalhe.data.moves.map(m => m.move.name)
                         }
                     } catch {
                         return null;
@@ -189,7 +197,7 @@ const Pokedex = (() => {
         setAbilitySearch(input)
 
         if (input.trim().length === 0) {
-            setAbilitySuggestion([])
+            setAbilitySuggestion(ability.slice(0,1000))
             return
         }
 
@@ -200,11 +208,24 @@ const Pokedex = (() => {
         setAbilitySuggestion(filtered.slice(0, 1000))
     }
 
+    const handleFocus = () => {
+        if (abilitySearch.trim().length === 0) {
+            setAbilitySuggestion(ability.slice(0,1000))
+        }
+    }
+
+    const handleBlur = () => {
+        setTimeout(() => setAbilitySuggestion([]), 200)
+    }
+
     useEffect(() => {
         const fetchAbility = async () => {
             try {
                 const res = await axios.get(`https://pokeapi.co/api/v2/ability?limit=1000`)
-                const lista = res.data.results.map(a => a.name)
+                const lista = res.data.results
+                    .map(a => a.name)
+                    .sort((a, b) => a.localeCompare(b))
+
                 setAbility(lista)
             } catch (err) {
                 console.error('Erro ao buscar habilidades:', err)
@@ -215,6 +236,51 @@ const Pokedex = (() => {
 
         fetchAbility()
     }, [])
+
+    useEffect(() => {
+        const fetchMoves = async () => {
+            try {
+                const res = await axios.get(`https://pokeapi.co/api/v2/move?limit=1000`)
+                const lista = res.data.results
+                    .map(m => m.name)
+                    .sort((a, b) => a.localeCompare(b))
+
+                setMoves(lista)
+            } catch (err) {
+                console.error('Erro ao buscar ataques:', err)
+            } finally {
+                setLoadingMove(false)
+            }
+        }
+
+        fetchMoves()
+    }, [])
+
+    const handleMoveInputChange = (e) => {
+        const input = e.target.value.toLowerCase().trim()
+        setMoveSearch(input)
+
+        if (input.trim().length === 0) {
+            setMoveSuggestion(moves.slice(0,1000))
+            return
+        }
+
+        const filtered = moves.filter(mov =>
+            mov.toLowerCase().includes(input)
+        )
+
+        setMoveSuggestion(filtered.slice(0, 1000))
+    }
+
+    const handleMoveFocus = () => {
+        if (moveSearch.trim().length === 0) {
+            setMoveSuggestion(moves.slice(0,1000))
+        }
+    }
+
+    const handleMoveBlur = () => {
+        setTimeout(() => setMoveSuggestion([]), 200)
+    }
 
     useEffect(() => {
         fetchPorGeracao(geracaoSelecionada)
@@ -237,12 +303,19 @@ const Pokedex = (() => {
     }, [tipoSelecionado, geracaoSelecionada, abilitySearch])
 
     const pokemonsFiltrados = pokemons.filter(p => {
-        const temTipo = tipoSelecionado ? p.types.includes(tipoSelecionado) : true;
+        const temTipo = tipoSelecionado ? p.types.includes(tipoSelecionado) : true
+
         const buscaHabilidadeLimpa = abilitySearch.toLowerCase().trim()
         const temHabilidade = buscaHabilidadeLimpa
             ? p.abilities?.some(a => a.includes(buscaHabilidadeLimpa))
-            : true;
-        return temTipo && temHabilidade;
+            : true
+        
+        const buscaMoveLimpa = moveSearch.toLowerCase().trim()
+        const temMove = buscaMoveLimpa
+            ? p.moves?.some(m => m.includes(buscaMoveLimpa))
+            : true
+
+        return temTipo && temHabilidade && temMove
     })
 
     const pokemonsToShow = pokemonsFiltrados.slice(0, visibleCount)
@@ -252,7 +325,7 @@ const Pokedex = (() => {
             <Container className="container-pokedex my-5 mx-auto d-block">
                 <h4 className="text-center my-5 title-pokedex">Pokédex</h4>
 
-                <Form.Group className="mb-4 w-100 text-center geracao-group">
+                <Form.Group className="mb-4 w-100 gap-3 text-center geracao-group justify-content-center">
                     <div className="autocomplete-container">
                         <FormControl
                             type="search"
@@ -260,6 +333,8 @@ const Pokedex = (() => {
                             className="geracao-select"
                             value={abilitySearch}
                             onChange={handleInputChange}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
                             disabled={loadingAbility}
                         />
                         {abilitySuggestion.length > 0 && (
@@ -276,6 +351,36 @@ const Pokedex = (() => {
                                         className="listgroup-item"
                                     >
                                         <span className="text-white">{hab.charAt(0).toUpperCase() + hab.slice(1)}</span>
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        )}
+                    </div>
+                    <div className="autocomplete-container">
+                        <FormControl
+                            type="search"
+                            placeholder="Buscar Ataque"
+                            className="geracao-select"
+                            value={moveSearch}
+                            onChange={handleMoveInputChange}
+                            onFocus={handleMoveFocus}
+                            onBlur={handleMoveBlur}
+                            disabled={loadingMove}
+                        />
+                        {moveSuggestion.length > 0 && (
+                            <ListGroup className="autocomplete-list">
+                                {moveSuggestion.map((mov, i) => (
+                                    <ListGroup.Item
+                                        key={i}
+                                        action
+                                        onClick={() => {
+                                            setMoveSearch(mov)
+                                            setMoveSuggestion([])
+                                            setVisibleCount(pageSize)
+                                        }}
+                                        className="listgroup-item"
+                                    >
+                                        <span className="text-white">{mov.charAt(0).toUpperCase() + mov.slice(1)}</span>
                                     </ListGroup.Item>
                                 ))}
                             </ListGroup>
