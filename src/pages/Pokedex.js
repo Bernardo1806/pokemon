@@ -176,12 +176,8 @@ const Pokedex = (() => {
 
             const ordenadas = species.sort((a, b) => a.name.localeCompare(b.name))
 
-            const delay = ms => new Promise(r => setTimeout(r, ms))
-
-            const detalhes = []
-            for (let i = 0; i < ordenadas.length; i += 10) {
-                const chunk = ordenadas.slice(i, i + 10)
-                const batch = await Promise.all(chunk.map(async s => {
+            const detalhes = await Promise.all(
+                ordenadas.map(async (s) => {
                     try {
                         const resDetalhe = await axios.get(`https://pokeapi.co/api/v2/pokemon/${s.name}`)
                         return {
@@ -195,10 +191,8 @@ const Pokedex = (() => {
                     } catch {
                         return null
                     }
-                }))
-                detalhes.push(...batch)
-                await delay(200)
-            }
+                })
+            )
 
             const ordenadosPorId = detalhes
                 .filter((p) => p !== null)
