@@ -175,8 +175,13 @@ const Pokedex = (() => {
             }
 
             const ordenadas = species.sort((a, b) => a.name.localeCompare(b.name))
-            const detalhes = await Promise.all(
-                ordenadas.map(async (s) => {
+
+            const delay = ms => new Promise(r => setTimeout(r, ms))
+
+            const detalhes = []
+            for (let i = 0; i < ordenadas.length; i += 10) {
+                const chunk = ordenadas.slice(i, i + 10)
+                const batch = await Promise.all(chunk.map(async s => {
                     try {
                         const resDetalhe = await axios.get(`https://pokeapi.co/api/v2/pokemon/${s.name}`)
                         return {
@@ -188,10 +193,12 @@ const Pokedex = (() => {
                             moves: resDetalhe.data.moves.map(m => m.move.name)
                         }
                     } catch {
-                        return null;
+                        return null
                     }
-                })
-            )
+                }))
+                detalhes.push(...batch)
+                await delay(200)
+            }
 
             const ordenadosPorId = detalhes
                 .filter((p) => p !== null)
@@ -290,7 +297,7 @@ const Pokedex = (() => {
                 const lista = res.data.results
                     .map(m => m.name)
                     .sort((a, b) => a.localeCompare(b))
-                
+
                 setMoves(lista)
             } catch (err) {
                 console.error('Erro ao buscar ataques:', err)
@@ -310,9 +317,9 @@ const Pokedex = (() => {
         if (input.trim().length === 0) {
             filtered = moves.slice(0, 1000)
         } else {
-            filtered = moves.filter(mov => 
+            filtered = moves.filter(mov =>
                 mov.toLowerCase().includes(input)
-            ).slice(0,1000)
+            ).slice(0, 1000)
         }
 
         setMoveSuggestion(filtered)
@@ -326,7 +333,7 @@ const Pokedex = (() => {
 
     const handleMoveFocus = () => {
         if (moveSearch.trim().length === 0) {
-            const initialSuggestion = moves.slice(0,1000)
+            const initialSuggestion = moves.slice(0, 1000)
             setMoveSuggestion(initialSuggestion)
 
             for (const mov of initialSuggestion) {
@@ -543,16 +550,19 @@ const Pokedex = (() => {
                                                 variant="top"
                                                 className="pokemon-img"
                                                 src={pokemon.image}
+                                                loading="lazy"
                                             />
                                             <Card.Title className="pokedex-id text-center">
                                                 {String(pokemon.id).padStart(3, '0')}
                                             </Card.Title>
                                             <Card.Img
                                                 className="typing-img"
+                                                loading="lazy"
                                                 src={'https://i.imgur.com/t4EtWZA.png'}
                                             />
                                             <Card.Img
                                                 className="typing-img2"
+                                                loading="lazy"
                                                 src={'https://i.imgur.com/cBGHxdm.png'}
                                             />
                                         </Card.Body>
@@ -565,6 +575,7 @@ const Pokedex = (() => {
                                                     <img
                                                         key={type}
                                                         src={typeImages[type]}
+                                                        loading="lazy"
                                                         alt={type}
                                                         className="type-icon-pokedex me-1"
                                                         title={type.charAt(0).toUpperCase() + type.slice(1)}
