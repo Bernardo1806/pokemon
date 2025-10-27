@@ -56,6 +56,12 @@ const typeIcons = {
     fairy: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e8ddc4da-23dd-4502-b65b-378c9cfe5efa/dffqx2d-a0dfea1e-7899-45fa-9769-64eef178a09b.png/v1/fit/w_300,h_900/fairy_type_symbol_sinnoh_by_jormxdos_dffqx2d-300w.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiIvZi9lOGRkYzRkYS0yM2RkLTQ1MDItYjY1Yi0zNzhjOWNmZTVlZmEvZGZmcXgyZC1hMGRmZWExZS03ODk5LTQ1ZmEtOTc2OS02NGVlZjE3OGEwOWIucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.5SQLw5gGsup9wUqM8eb30yTp1LXlC7RAY1oBzaepTh8'
 }
 
+const moveCategoryIcons = {
+    physical: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e8ddc4da-23dd-4502-b65b-378c9cfe5efa/dfgb60u-0487066d-d95f-4b5e-9501-73fe14ecf981.png/v1/fill/w_894,h_894/physical_move_icon_by_jormxdos_dfgb60u-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiIvZi9lOGRkYzRkYS0yM2RkLTQ1MDItYjY1Yi0zNzhjOWNmZTVlZmEvZGZnYjYwdS0wNDg3MDY2ZC1kOTVmLTRiNWUtOTUwMS03M2ZlMTRlY2Y5ODEucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.ZGXGWiCzBd4wPlWffzQytuUrDAnxl_RWF7lAaxLiYDE',
+    special: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e8ddc4da-23dd-4502-b65b-378c9cfe5efa/dfgb60n-b67f8e0e-fdb5-439f-92da-107c846ce339.png/v1/fill/w_894,h_894/special_move_icon_by_jormxdos_dfgb60n-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiIvZi9lOGRkYzRkYS0yM2RkLTQ1MDItYjY1Yi0zNzhjOWNmZTVlZmEvZGZnYjYwbi1iNjdmOGUwZS1mZGI1LTQzOWYtOTJkYS0xMDdjODQ2Y2UzMzkucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.n2OQC0kNjJM6S9MQr6a6Lj68yCvyKDYV-1F23FbPzMg',
+    status: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e8ddc4da-23dd-4502-b65b-378c9cfe5efa/dfgb616-756e9623-02db-436d-b587-2e0f386b5fc0.png/v1/fill/w_894,h_894/status_move_icon_by_jormxdos_dfgb616-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiIvZi9lOGRkYzRkYS0yM2RkLTQ1MDItYjY1Yi0zNzhjOWNmZTVlZmEvZGZnYjYxNi03NTZlOTYyMy0wMmRiLTQzNmQtYjU4Ny0yZTBmMzg2YjVmYzAucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.hL6NAOQXAyFRJmS5aX7P6u4Dv7LN_ejmkZbI-ykI4G0',
+}
+
 const maxId = 1025
 
 const Busca = (() => {
@@ -76,6 +82,23 @@ const Busca = (() => {
     const [formas, setFormas] = useState([])
     const [formaAtiva, setFormaAtiva] = useState('')
     const [defaultImage, setDefaultImage] = useState('')
+
+    const [breedingInfo, setBreedingInfo] = useState({})
+    const [trainingInfo, setTrainingInfo] = useState({})
+
+    const [movesByMethod, setMovesByMethod] = useState({
+        levelUp: [],
+        egg: [],
+        tutor: [],
+        evolution: [],
+        machine: []
+    })
+
+    const [sortConfig, setSortConfig] = useState({
+        method: null,
+        key: null,
+        direction: 'asc'
+    })
 
     const getPreviousPokemonId = (currentId) => {
         return currentId === 1 ? maxId : currentId - 1
@@ -170,6 +193,34 @@ const Busca = (() => {
         }
     }
 
+    const handleSort = (method, key) => {
+        setMovesByMethod(prev => {
+            const sorted = { ...prev }
+
+            let direction = 'asc'
+            if (sortConfig.method == method && sortConfig.key === key && sortConfig.direction == 'asc') {
+                direction = 'desc'
+            }
+
+            const sortedMoves = [...sorted[method]].sort((a, b) => {
+                const aVal = a[key] === '-' ? 0 : a[key]
+                const bVal = b[key] === '-' ? 0 : b[key]
+
+                if (!isNaN(aVal) && !isNaN(bVal)) {
+                    return direction === 'asc' ? aVal - bVal : bVal - aVal
+                } else {
+                    return direction === 'asc'
+                        ? String(aVal).localeCompare(String(bVal))
+                        : String(bVal).localeCompare(String(aVal))
+                }
+            })
+
+            sorted[method] = sortedMoves
+            setSortConfig({ method, key, direction })
+            return sorted
+        })
+    }
+
     const calculateDamageMultipliers = async (types) => {
         const typeList = Object.keys(typeColors)
         const multipliers = {}
@@ -216,9 +267,83 @@ const Busca = (() => {
                     abilities: currentPokemon.abilities.map(a => a.ability.name),
                     stats: currentPokemon.stats.map(s => ({
                         name: s.stat.name,
-                        value: s.base_stat
+                        value: s.base_stat,
+                        effort: s.effort
                     }))
                 })
+
+                const allMoves = currentPokemon.moves.map(m => {
+                    const details = m.version_group_details[m.version_group_details.length - 1]
+                    return {
+                        name: m.move.name,
+                        url: m.move.url,
+                        method: details.move_learn_method.name,
+                        level: details.level_learned_at
+                    }
+                })
+
+                const movesDetailed = await Promise.all(
+                    allMoves.map(async (move) => {
+                        try {
+                            const res = await axios.get(move.url)
+                            const data = res.data
+                            let tmNumber = null
+
+                            if (move.method === 'machine' && data.machines.length > 0) {
+                                const machineUrl = data.machines[data.machines.length - 1].machine.url
+                                const machineRes = await axios.get(machineUrl)
+                                const machineName = machineRes.data.item.name
+
+                                tmNumber = machineName.toUpperCase()
+                            }
+
+                            return {
+                                ...move,
+                                power: data.power ?? '-',
+                                accuracy: data.accuracy ?? '-',
+                                damage_class: data.damage_class.name,
+                                type: data.type.name,
+                                tmNumber
+                            }
+                        } catch (err) {
+                            console.error("Erro ao buscar detalhes do golde:", move.name, err)
+                            return { ...move, power: '-', accuracy: '-', damage_class: '-', type: '-', tmNumber: null }
+                        }
+                    })
+                )
+
+                const groupedMoves = {
+                    levelUp: [],
+                    egg: [],
+                    tutor: [],
+                    evolution: [],
+                    machine: []
+                }
+
+                movesDetailed.forEach(move => {
+                    switch (move.method) {
+                        case 'level-up':
+                            groupedMoves.levelUp.push(move)
+                            break
+                        case 'egg':
+                            groupedMoves.egg.push(move)
+                            break
+                        case 'tutor':
+                            groupedMoves.tutor.push(move)
+                            break
+                        case 'evolution':
+                            groupedMoves.evolution.push(move)
+                            break
+                        case 'machine':
+                            groupedMoves.machine.push(move)
+                            break
+                        default:
+                            break
+                    }
+                })
+
+                groupedMoves.levelUp.sort((a, b) => a.level - b.level)
+                setMovesByMethod(groupedMoves)
 
                 setDefaultImage(currentPokemon.sprites.other['official-artwork'].front_default)
 
@@ -235,6 +360,37 @@ const Busca = (() => {
                 setDamageMultipliers(multipliers)
 
                 const speciesRes = await axios.get(currentPokemon.species.url)
+
+                const speciesData = speciesRes.data
+                const eggGroups = formatName((speciesData.egg_groups || []).map(g => g.name).join(', '))
+                let genderRate = speciesData.gender_rate
+                let genderText = ''
+                if (genderRate === -1) genderText = 'Genderless'
+                else {
+                    const female = (genderRate / 8) * 100
+                    const male = 100 - female
+                    genderText = `${male}% ♂ / ${female}% ♀`
+                }
+
+                const captureRate = speciesData.capture_rate ?? '-'
+                const baseFriendship = speciesData.base_happiness ?? '-'
+
+                const evYield = (currentPokemon.stats || [])
+                    .filter(s => s.effort > 0)
+                    .map(s => `${s.effort} ${formatName(s.stat.name)}`)
+                    .join(', ') || 'None'
+
+                setBreedingInfo({
+                    eggGroups,
+                    genderText
+                })
+
+                setTrainingInfo({
+                    evYield,
+                    captureRate,
+                    baseFriendship
+                })
+
                 const evolutionChainUrl = speciesRes.data.evolution_chain.url
 
                 const formsWithImages = await Promise.all(
@@ -302,6 +458,7 @@ const Busca = (() => {
 
                 setEvolutionData(fullEvolutionTree)
 
+
             } catch (error) {
                 console.error('Error fetching Pokémon data: ', error)
                 setPokemon(null)
@@ -331,7 +488,8 @@ const Busca = (() => {
                 abilities: data.abilities.map(a => a.ability.name),
                 stats: data.stats.map(s => ({
                     name: s.stat.name,
-                    value: s.base_stat
+                    value: s.base_stat,
+                    effort: s.effort
                 }))
             })
 
@@ -460,6 +618,17 @@ const Busca = (() => {
                                         ))}
                                     </ol>
                                 </div>
+                                <div className="pokemon-competitive mt-3">
+                                    <strong>Competitivo:</strong>{' '}
+                                    <a
+                                        href={`https://www.smogon.com/dex/ss/pokemon/${pokemon.name.toLowerCase()}/`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="linked-text"
+                                    >
+                                        Estratégias
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -498,6 +667,325 @@ const Busca = (() => {
                                 </div>
                             </div>
                         )}
+
+                        <div className="pokemon-bottom-info-section gap-5">
+                            <div className="pokemon-breeding-section">
+                                <h4 className="pokedex-data-title">Breeding</h4>
+                                <p><strong>Egg Groups:</strong> {breedingInfo.eggGroups || '-'}</p>
+                                <p><strong>Gender:</strong> {breedingInfo.genderText || '-'}</p>
+                            </div>
+                            <div className="pokemon-training-section">
+                                <h4 className="pokedex-data-title">Training</h4>
+                                <p><strong>EV Yield</strong> {trainingInfo.evYield || '-'}</p>
+                                <p><strong>Catch Rate:</strong> {trainingInfo.captureRate || '-'}</p>
+                                <p><strong>Base Friendship:</strong> {trainingInfo.baseFriendship || '-'}</p>
+                            </div>
+                        </div>
+
+                        <div className="pokemon-moves-section mt-4">
+                            <h4 className="pokedex-data-title">Moves</h4>
+
+                            <div className="move-categories-wrapper">
+                                <div className="move-categories-left">
+                                    {Object.entries(movesByMethod)
+                                        .filter(([method]) => method !== 'machine')
+                                        .map(([method, moves]) => (
+                                            moves.length > 0 && (
+                                                <div key={method} className="move-category mb-3">
+                                                    <h5 className="move-category-title">
+                                                        {method === 'levelUp' ? 'Aprende por Level Up' :
+                                                            method === 'egg' ? 'Aprende no Ovo' :
+                                                                method === 'tutor' ? 'Aprende com Tutor' :
+                                                                    method === 'evolution' ? 'Aprende por Evolução' :
+                                                                        method}
+                                                    </h5>
+
+                                                    <table className="table table-striped table-bordered">
+                                                        <thead className="table-dark text-center">
+                                                            <tr>
+                                                                {method === 'levelUp' && (
+                                                                    <th
+                                                                        className="sortable-header"
+                                                                        onClick={() => handleSort(method, 'level')}
+                                                                        style={{ width: '8%' }}
+                                                                    >
+                                                                        Lv.
+                                                                        <span
+                                                                            className={`sort-arrow ${sortConfig.method === method && sortConfig.key === 'level' ? 'active' : ''}`}
+                                                                        >
+                                                                            {sortConfig.method === method && sortConfig.key === 'level'
+                                                                                ? sortConfig.direction === 'asc'
+                                                                                    ? '▲'
+                                                                                    : '▼'
+                                                                                : '△'}
+                                                                        </span>
+                                                                    </th>
+                                                                )}
+
+                                                                <th
+                                                                    className="sortable-header"
+                                                                    onClick={() => handleSort(method, 'name')}
+                                                                    style={{ width: '25%' }}
+                                                                >
+                                                                    Move
+                                                                    <span
+                                                                        className={`sort-arrow ${sortConfig.method === method && sortConfig.key === 'name' ? 'active' : ''}`}
+                                                                    >
+                                                                        {sortConfig.method === method && sortConfig.key === 'name'
+                                                                            ? sortConfig.direction === 'asc'
+                                                                                ? '▲'
+                                                                                : '▼'
+                                                                            : '△'}
+                                                                    </span>
+                                                                </th>
+
+                                                                <th
+                                                                    className="sortable-header"
+                                                                    onClick={() => handleSort(method, 'type')}
+                                                                    style={{ width: '14%' }}
+                                                                >
+                                                                    Type
+                                                                    <span
+                                                                        className={`sort-arrow ${sortConfig.method === method && sortConfig.key === 'type' ? 'active' : ''}`}
+                                                                    >
+                                                                        {sortConfig.method === method && sortConfig.key === 'type'
+                                                                            ? sortConfig.direction === 'asc'
+                                                                                ? '▲'
+                                                                                : '▼'
+                                                                            : '△'}
+                                                                    </span>
+                                                                </th>
+
+                                                                <th
+                                                                    className="sortable-header"
+                                                                    onClick={() => handleSort(method, 'damage_class')}
+                                                                    style={{ width: '10%' }}
+                                                                >
+                                                                    Cat.
+                                                                    <span
+                                                                        className={`sort-arrow ${sortConfig.method === method && sortConfig.key === 'damage_class' ? 'active' : ''}`}
+                                                                    >
+                                                                        {sortConfig.method === method && sortConfig.key === 'damage_class'
+                                                                            ? sortConfig.direction === 'asc'
+                                                                                ? '▲'
+                                                                                : '▼'
+                                                                            : '△'}
+                                                                    </span>
+                                                                </th>
+
+                                                                <th
+                                                                    className="sortable-header"
+                                                                    onClick={() => handleSort(method, 'power')}
+                                                                    style={{ width: '10%' }}
+                                                                >
+                                                                    Power
+                                                                    <span
+                                                                        className={`sort-arrow ${sortConfig.method === method && sortConfig.key === 'power' ? 'active' : ''}`}
+                                                                    >
+                                                                        {sortConfig.method === method && sortConfig.key === 'power'
+                                                                            ? sortConfig.direction === 'asc'
+                                                                                ? '▲'
+                                                                                : '▼'
+                                                                            : '△'}
+                                                                    </span>
+                                                                </th>
+
+                                                                <th
+                                                                    className="sortable-header"
+                                                                    onClick={() => handleSort(method, 'accuracy')}
+                                                                    style={{ width: '10%' }}
+                                                                >
+                                                                    Acc.
+                                                                    <span
+                                                                        className={`sort-arrow ${sortConfig.method === method && sortConfig.key === 'accuracy' ? 'active' : ''}`}
+                                                                    >
+                                                                        {sortConfig.method === method && sortConfig.key === 'accuracy'
+                                                                            ? sortConfig.direction === 'asc'
+                                                                                ? '▲'
+                                                                                : '▼'
+                                                                            : '△'}
+                                                                    </span>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            {moves.map((move, index) => (
+                                                                <tr key={index}>
+                                                                    {method === 'levelUp' && <td>{move.level > 0 ? move.level : '-'}</td>}
+                                                                    <td className="text-start">{formatName(move.name)}</td>
+                                                                    <td className="type-cell">
+                                                                        {move.type && typeImages[move.type] ? (
+                                                                            <img
+                                                                                src={typeImages[move.type]}
+                                                                                alt={move.type}
+                                                                                className="type-icon-img"
+                                                                                title={move.type.charAt(0).toUpperCase() + move.type.slice(1)}
+                                                                            />
+                                                                        ) : (
+                                                                            '-'
+                                                                        )}
+                                                                    </td>
+                                                                    <td style={{ textAlign: 'center', padding: '4px' }}>
+                                                                        <div style={{
+                                                                            display: 'flex',
+                                                                            justifyContent: 'center',
+                                                                            alignItems: 'center',
+                                                                            height: '40px',
+                                                                            width: '40px',
+                                                                            margin: '0 auto'
+                                                                        }}>
+                                                                            <img
+                                                                                src={moveCategoryIcons[move.damage_class]}
+                                                                                alt={move.damage_class}
+                                                                                title={move.damage_class}
+                                                                                style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', display: 'block' }}
+                                                                            />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>{move.power}</td>
+                                                                    <td>{move.accuracy}</td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            )
+                                        ))}
+                                </div>
+
+                                <div className="move-categories-right">
+                                    {movesByMethod.machine?.length > 0 && (
+                                        <div className="move-category move-category-tm mb-3">
+                                            <h5 className="move-category-title">Aprende por TM</h5>
+
+                                            <table className="table table-striped table-bordered">
+                                                <thead className="table-dark text-center">
+                                                    <tr>
+                                                        <th
+                                                            className="sortable-header"
+                                                            onClick={() => handleSort('machine', 'tmNumber')}
+                                                            style={{ width: '10%' }}
+                                                        >
+                                                            TM
+                                                            <span
+                                                                className={`sort-arrow ${sortConfig.method === 'machine' && sortConfig.key === 'tmNumber' ? 'active' : ''}`}
+                                                            >
+                                                                {sortConfig.method === 'machine' && sortConfig.key === 'tmNumber'
+                                                                    ? sortConfig.direction === 'asc'
+                                                                        ? '▲'
+                                                                        : '▼'
+                                                                    : '△'}
+                                                            </span>
+                                                        </th>
+
+                                                        <th className="sortable-header" onClick={() => handleSort('machine', 'name')} style={{ width: '25%' }}>
+                                                            Move
+                                                            <span
+                                                                className={`sort-arrow ${sortConfig.method === 'machine' && sortConfig.key === 'name' ? 'active' : ''}`}
+                                                            >
+                                                                {sortConfig.method === 'machine' && sortConfig.key === 'name'
+                                                                    ? sortConfig.direction === 'asc'
+                                                                        ? '▲'
+                                                                        : '▼'
+                                                                    : '△'}
+                                                            </span>
+                                                        </th>
+                                                        <th className="sortable-header" onClick={() => handleSort('machine', 'type')} style={{ width: '14%' }}>
+                                                            Type
+                                                            <span
+                                                                className={`sort-arrow ${sortConfig.method === 'machine' && sortConfig.key === 'type' ? 'active' : ''}`}
+                                                            >
+                                                                {sortConfig.method === 'machine' && sortConfig.key === 'type'
+                                                                    ? sortConfig.direction === 'asc'
+                                                                        ? '▲'
+                                                                        : '▼'
+                                                                    : '△'}
+                                                            </span>
+                                                        </th>
+                                                        <th className="sortable-header" onClick={() => handleSort('machine', 'damage_class')} style={{ width: '10%' }}>
+                                                            Cat.
+                                                            <span
+                                                                className={`sort-arrow ${sortConfig.method === 'machine' && sortConfig.key === 'damage_class' ? 'active' : ''}`}
+                                                            >
+                                                                {sortConfig.method === 'machine' && sortConfig.key === 'damage_class'
+                                                                    ? sortConfig.direction === 'asc'
+                                                                        ? '▲'
+                                                                        : '▼'
+                                                                    : '△'}
+                                                            </span>
+                                                        </th>
+                                                        <th className="sortable-header" onClick={() => handleSort('machine', 'power')} style={{ width: '10%' }}>
+                                                            Power
+                                                            <span
+                                                                className={`sort-arrow ${sortConfig.method === 'machine' && sortConfig.key === 'power' ? 'active' : ''}`}
+                                                            >
+                                                                {sortConfig.method === 'machine' && sortConfig.key === 'power'
+                                                                    ? sortConfig.direction === 'asc'
+                                                                        ? '▲'
+                                                                        : '▼'
+                                                                    : '△'}
+                                                            </span>
+                                                        </th>
+                                                        <th className="sortable-header" onClick={() => handleSort('machine', 'accuracy')} style={{ width: '10%' }}>
+                                                            Acc.
+                                                            <span
+                                                                className={`sort-arrow ${sortConfig.method === 'machine' && sortConfig.key === 'accuracy' ? 'active' : ''}`}
+                                                            >
+                                                                {sortConfig.method === 'machine' && sortConfig.key === 'accuracy'
+                                                                    ? sortConfig.direction === 'asc'
+                                                                        ? '▲'
+                                                                        : '▼'
+                                                                    : '△'}
+                                                            </span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {movesByMethod.machine.map((move, index) => (
+                                                        <tr key={index}>
+                                                            <td>{move.tmNumber || '-'}</td>
+                                                            <td className="text-start">{formatName(move.name)}</td>
+                                                            <td className="type-cell">
+                                                                {move.type && typeImages[move.type] ? (
+                                                                    <img
+                                                                        src={typeImages[move.type]}
+                                                                        alt={move.type}
+                                                                        className="type-icon-img"
+                                                                        title={move.type.charAt(0).toUpperCase() + move.type.slice(1)}
+                                                                    />
+                                                                ) : (
+                                                                    '-'
+                                                                )}
+                                                            </td>
+                                                            <td style={{ textAlign: 'center', padding: '4px' }}>
+                                                                <div style={{
+                                                                    display: 'flex',
+                                                                    justifyContent: 'center',
+                                                                    alignItems: 'center',
+                                                                    height: '40px',
+                                                                    width: '40px',
+                                                                    margin: '0 auto'
+                                                                }}>
+                                                                    <img
+                                                                        src={moveCategoryIcons[move.damage_class]}
+                                                                        alt={move.damage_class}
+                                                                        title={move.damage_class}
+                                                                        style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', display: 'block' }}
+                                                                    />
+                                                                </div>
+                                                            </td>
+                                                            <td>{move.power}</td>
+                                                            <td>{move.accuracy}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 )}
